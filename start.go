@@ -52,21 +52,61 @@ func handleAddTask() {
 		fmt.Println("Error marshalling JSON:", err)
 		return
 	}
+	//make a choic logic after adding task to either make a new file or add to existing file
+	var choice int 
+	fmt.Println("Do you want to add to existing file or create a new file.\n Press 1 for add to existing file or 2 to create a new task file")
+	fmt.Scanln(&choice)
+
+	if choice == 1{
+		//do the adding to existing file action here with like error handling 
+		fmt.Println("Enter the existing file name")
+		var filename string
+		fmt.Scanln(&filename)
+		var tasksList []Task
 	
+		
+		existingTask, err := os.ReadFile(filename)
+		if err != nil {
+			fmt.Println("Error reading the file/ file doesn't exist")
+		}
 
-	//we make a file with the users preferred name 
-	fmt.Print("Enter file name: ")
-	var filename string 
-	fmt.Scanln(&filename)
+		err = json.Unmarshal(existingTask,&existingTask) 
+		if err != nil {
+			fmt.Println("Error unmarshalling JSON")
+		}
+		
+		tasksList = append(tasksList, newTask)
 
-	//make a json file that will save the tasks
-	err = os.WriteFile(filename, jsonData, 0644)
-	if err != nil {
+		
+		updatedJsonBytes, err := json.Marshal(tasksList)
+		if err != nil{
+			fmt.Println("Error marshalling the JSON")
+		}
+
+		err = os.WriteFile(filename, updatedJsonBytes, 0644)
+		if err != nil {
+			fmt.Println("Error saving changes to the file")
+		}
+	}else {
+		//do the new file action here.
+		fmt.Print("Enter file name: ")
+		var filename string 
+		fmt.Scanln(&filename)
+
+		//make a json file that will save the tasks
+		err = os.WriteFile(filename, jsonData, 0644)
+		if err != nil {
 		fmt.Println("the file cannot be created", err)
 		return
+		}
+		fmt.Println("Task saved to the file successfully")
+
 	}
-	fmt.Println("Task saved to the file successfully")
-}
+
+
+
+	//we make a file with the users preferred name 
+	}
 
 func handleListTasks() {
 	// 3. Mess-free zone for listing tasks
