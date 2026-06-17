@@ -70,9 +70,10 @@ func handleAddTask() {
 			fmt.Println("Error reading the file/ file doesn't exist")
 		}
 
-		err = json.Unmarshal(existingTask,&existingTask) 
+		err = json.Unmarshal(existingTask, &tasksList) 
 		if err != nil {
 			fmt.Println("Error unmarshalling JSON")
+			return
 		}
 		
 		tasksList = append(tasksList, newTask)
@@ -86,6 +87,7 @@ func handleAddTask() {
 		err = os.WriteFile(filename, updatedJsonBytes, 0644)
 		if err != nil {
 			fmt.Println("Error saving changes to the file")
+			return
 		}
 	}else {
 		//do the new file action here.
