@@ -66,8 +66,6 @@ Press 1 to add to an existing file or 2 to create a new task file: 1**
 **Enter the existing file name: tasks.json
 Task saved to the file successfully!**
 
-
-
 ### Updating The Status of a Task
 
 ```bash
@@ -92,11 +90,3 @@ To see a clean read-out of all tasks currently stored inside a specific file, in
 ```bash
 go run start.go list
 ```
-
-**Enter the file name you want to list tasks from:**
-tasks.json
-
-=== Current Task List ===
-[ID: 1] Watch the Man City game | Status: done
-[ID: 2] Complete Go storage data pipeline | Status: todo
-=========================
