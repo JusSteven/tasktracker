@@ -49,7 +49,7 @@ func handleAddTask() {
 	tasks := []Task{newTask}
 	
 	// we are marshalling tasks so that it can be saved 
-	jsonData, err := json.Marshal(tasks)
+	jsonData, err := json.MarshalIndent(tasks, "", " ")
 	if err != nil{
 		fmt.Println("Error marshalling JSON:", err)
 		return
@@ -92,7 +92,7 @@ func handleAddTask() {
 		tasksList = append(tasksList, newTask)
 
 		
-		updatedJsonBytes, err := json.Marshal(tasksList)
+		updatedJsonBytes, err := json.MarshalIndent(tasksList, "", " ")
 		if err != nil{
 			fmt.Println("Error marshalling the JSON")
 		}
@@ -191,7 +191,7 @@ func handleUpdateTask(){
 	}
 
 
-	updatedBytes, err := json.Marshal(tasksList)
+	updatedBytes, err := json.MarshalIndent(tasksList, "", " ")
 	if err != nil {
 		fmt.Println("Error marshalling the tasks")
 	}
